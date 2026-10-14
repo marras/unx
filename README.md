@@ -1,8 +1,6 @@
 # unxcom
 
-A minimal Firefox extension skeleton. The planned feature is to redirect
-`x.com/*` links to another site. This version does not redirect anything or
-request website access.
+A minimal Firefox extension skeleton to redirect `x.com/*` links to another site, like https://nitter.cf/
 
 ## Load in Firefox
 
