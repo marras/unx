@@ -1,9 +1,11 @@
 {
-  "manifest_version": 3,
-  "name": "unxcom",
-  "version": "0.1.0",
-  "description": "A Firefox extension skeleton for future redirects from x.com to another site.",
-  "background": {
-    "scripts": ["background.js"]
-  }
+	"manifest_version": 3,
+	"name": "unxcom",
+	"version": "0.1.0",
+	"description": "A Firefox extension redirecting from x.com to some other site without the bullshit.",
+	"background": {
+		"scripts": ["background.js"]
+	},
+	"permissions": ["webRequest", "webRequestBlocking"],
+	"host_permissions": ["<all_urls>"]
 }
