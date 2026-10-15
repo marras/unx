@@ -12,18 +12,18 @@ The temporary extension stays installed until Firefox restarts. After editing
 the files, click **Reload** beside unxcom on the same page. Click **Inspect** to
 view its background console.
 
+If navigation produces no messages, open `about:addons`, select unxcom, and
+check its **Permissions** tab: access to all websites must be enabled. The
+background script warns if that permission is missing. After changing the
+manifest, reload the add-on in `about:debugging`; if Firefox does not pick up
+the new permissions, remove the temporary add-on and load it again.
+
 ## Files
 
 - `manifest.json`: extension name, version, and background script registration.
-- `background.js`: placeholder for future redirect logic.
+- `background.js`: logs navigation requests and redirects x.com requests to nitter.cf.
 
 No dependencies or build step are required.
-
-## Next steps
-
-Choose the destination site, define how paths and query strings should map to
-it, then add redirect logic and the necessary permissions. Keep website access
-limited to the hosts needed for that feature.
 
 ## Reference
 
