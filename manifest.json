@@ -3,9 +3,13 @@
 	"name": "unxcom",
 	"version": "0.1.0",
 	"description": "A Firefox extension redirecting from x.com to some other site without the bullshit.",
-	"background": {
-		"scripts": ["background.js"]
-	},
-	"permissions": ["webRequest", "webRequestBlocking"],
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": ["content.js"],
+			"run_at": "document_start",
+			"all_frames": true
+		}
+	],
 	"host_permissions": ["<all_urls>"]
 }
