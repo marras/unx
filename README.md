@@ -1,12 +1,30 @@
 # unx: un-x.com my browser
 
-A minimal Firefox extension that sends clicked `x.com/*` links to https://nitter.cf/.
+A minimal Firefox extension that redirects clicked links using configurable host pairs.
+The default pair is `x.com` → `nitter.cf`.
 
 It runs on ordinary web pages, including localhost on any port.
 Normal clicks, Ctrl/Cmd-clicks, and middle clicks keep their usual tab behavior.
 
-Paths, query strings, and fragments are preserved. Typing or pasting an x.com
-address into the address bar loads x.com normally.
+Paths, query strings, and fragments are preserved. Typing or pasting an
+address into the address bar loads the original site normally.
+
+## Configure redirects
+
+Open `about:addons`, select **unxcom**, and open its **Preferences** / **Options**.
+Use **Add pair** to add as many source and destination hosts as you need, then
+click **Save changes**. Use **Remove** to delete a pair. Saving an empty list
+disables all redirects.
+
+Enter hostnames only, without a scheme, port, or path. For example,
+`x.com` → `nitter.cf` sends `https://x.com/user?q=hello#post` to
+`https://nitter.cf/user?q=hello#post`. Destination links always use HTTPS.
+Source hosts match with or without `www.`; other subdomains require their own
+pair. Each source can have only one destination. Each click applies one pair,
+so pairs can point to other source hosts without chaining or looping.
+
+Settings are saved locally in your browser profile and apply immediately to
+open tabs. The default pair is used until you save your own list.
 
 ## Load in Firefox
 
@@ -20,14 +38,21 @@ The temporary extension stays installed until Firefox restarts.
 
 ### Permissions
 
-If clicking an x.com link produces no messages and still takes you to the original x.com site: open `about:addons`, select unxcom, and check its **Permissions** tab: access to all websites must be enabled.
+If clicking a configured link still takes you to the original site, open
+`about:addons`, select unxcom, and check its **Permissions** tab: access to all
+websites must be enabled. The extension also uses the `storage` permission to
+save your host pairs, following Mozilla's
+[options page guidance](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/options_ui).
 
 ## Files
 
 - `manifest.json`: extension name, version, website access, and content script registration.
-- `content.js`: changes an x.com link's destination during a user click, then restores it.
+- `rules.js`: default pair and shared hostname validation.
+- `content.js`: loads saved pairs and changes a link's destination during a user click, then restores it.
+- `options.html`, `options.css`, `options.js`: options screen for editing and saving pairs.
 
 No dependencies or build step are required.
+Run the automated checks with `node --test` (Node.js 18 or newer).
 
 ## Reference
 
