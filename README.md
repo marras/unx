@@ -1,4 +1,4 @@
-# unxcom
+# unx: un-x.com my browser
 
 A minimal Firefox extension that sends clicked `x.com/*` links to https://nitter.cf/.
 Paths, query strings, and fragments are preserved. Typing or pasting an x.com
