@@ -7,10 +7,12 @@ It runs on ordinary web pages, including localhost on any port.
 Normal clicks, Ctrl/Cmd-clicks, and middle clicks keep their usual tab behavior.
 
 Paths, query strings, and fragments are preserved. To also redirect addresses
-typed or pasted into the address bar, enable **Redirect links typed or pasted
-into the address bar** in the options and save. This is off by default.
-Address-bar redirects happen once the original site starts loading, so they
-require the original site to be reachable.
+typed or pasted into the address bar or opened from external apps, enable
+**Redirect links typed or pasted into the address bar or opened from external apps**
+in the options and save. This is off by default. Your existing checkbox preference
+also controls external-app links. Direct opens are redirected before the original
+site loads, so the original site does not need to be reachable. Other direct opens
+without an originating web page, such as bookmarks, are covered too.
 
 ## Configure redirects
 
@@ -25,7 +27,7 @@ Enter hostnames only, without a scheme, port, or path. For example,
 Source hosts match with or without `www.`; other subdomains require their own
 pair. Each source can have only one destination. Each click applies one pair,
 so pairs can point to other source hosts without chaining or looping. Address-bar
-redirects also apply only once; ordinary reloads and back/forward navigation are unchanged.
+redirects also apply only once per request.
 
 Settings are saved locally in your browser profile and apply immediately to
 open tabs. The default pair is used until you save your own list.
@@ -44,8 +46,9 @@ The temporary extension stays installed until Firefox restarts.
 
 If clicking a configured link still takes you to the original site, open
 `about:addons`, select unxcom, and check its **Permissions** tab: access to all
-websites must be enabled. The extension also uses `webNavigation` to identify
-addresses entered in the address bar and `storage` to save your host pairs and
+websites must be enabled. The extension also uses `webRequest` and
+`webRequestBlocking` to redirect direct opens before loading the source site,
+and `storage` to save your host pairs and
 checkbox preference, following Mozilla's
 [options page guidance](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/options_ui).
 
@@ -54,7 +57,7 @@ checkbox preference, following Mozilla's
 - `manifest.json`: extension name, version, website access, and content script registration.
 - `rules.js`: default pair and shared hostname validation.
 - `content.js`: loads saved pairs and changes a link's destination during a user click, then restores it.
-- `background.js`: redirects address-bar navigations when the checkbox is enabled.
+- `background.js`: redirects direct opens from the address bar and external apps when the checkbox is enabled.
 - `options.html`, `options.css`, `options.js`: options screen for editing and saving pairs.
 
 No dependencies or build step are required.
