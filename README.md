@@ -42,6 +42,23 @@ open tabs. The default pair is used until you save your own list.
 
 The temporary extension stays installed until Firefox restarts.
 
+### Permanent installation
+
+The extension uses the permanent Firefox ID `unx@marek` and requires Firefox
+142 or newer, which provides built-in consent for data transmission on both
+desktop and Android. The manifest
+declares `browsingActivity` because redirects send the requested URL's path and
+query to the configured destination website. Settings stay in local storage;
+the extension has no analytics or developer-operated collection endpoint.
+
+Run `npx web-ext lint`, then `npx web-ext sign --channel=unlisted` with
+`WEB_EXT_API_KEY` (Mozilla's JWT issuer) and `WEB_EXT_API_SECRET` (JWT secret)
+set in your shell environment. A `.env` file is not loaded automatically.
+The web-ext configuration excludes `.env` files and development files from
+packages. Install the signed `.xpi` through `about:addons` → the gear menu →
+**Install Add-on From File…**. Keep the ID unchanged for future updates and
+increment the manifest version before signing each new version.
+
 ### Permissions
 
 If clicking a configured link still takes you to the original site, open
