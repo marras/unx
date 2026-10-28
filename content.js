@@ -9,7 +9,7 @@
 			destinations = new Map(redirectRules.normalizePairs(pairs).map(({ from, to }) =>
 				[redirectRules.sourceKey(from), to]));
 		} catch (error) {
-			console.error("unxcom: Could not load redirect pairs.", error);
+			console.error("un-X: Could not load redirect pairs.", error);
 			destinations = new Map();
 		}
 	}
@@ -22,7 +22,7 @@
 	});
 	browser.storage.local.get("redirects").then((settings) => {
 		if (!storageChanged) loadPairs(settings.redirects);
-	}).catch((error) => console.error("unxcom: Could not read settings.", error));
+	}).catch((error) => console.error("un-X: Could not read settings.", error));
 
 	function redirectLinkClick(event) {
 		if (!event.isTrusted || event.defaultPrevented) {

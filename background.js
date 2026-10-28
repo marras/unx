@@ -30,7 +30,7 @@ browser.webRequest.onBeforeRequest.addListener(async (details) => {
 		redirectedRequests.add(details.requestId);
 		return { redirectUrl: url.href };
 	} catch (error) {
-		console.error("unxcom: Could not redirect direct navigation.", error);
+		console.error("un-X: Could not redirect direct navigation.", error);
 	}
 }, navigationFilter, ["blocking"]);
 

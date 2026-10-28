@@ -1,6 +1,6 @@
 {
 	"manifest_version": 3,
-	"name": "unxcom",
+	"name": "un-X",
 	"version": "0.1.0",
 	"description": "Redirect links using your own source and destination hosts.",
 	"permissions": ["storage", "webRequest", "webRequestBlocking"],

@@ -1,4 +1,4 @@
-# unx: un-x.com my browser
+# un-X: un-x.com my browser
 
 A minimal Firefox extension that redirects links using configurable host pairs.
 The default pair is `x.com` → `nitter.cf`.
@@ -16,7 +16,7 @@ without an originating web page, such as bookmarks, are covered too.
 
 ## Configure redirects
 
-Open `about:addons`, select **unxcom**, and open its **Preferences** / **Options**.
+Open `about:addons`, select **un-X**, and open its **Preferences** / **Options**.
 Use **Add pair** to add as many source and destination hosts as you need, then
 click **Save changes**. Use **Remove** to delete a pair. Saving an empty list
 disables all redirects.
@@ -45,7 +45,7 @@ The temporary extension stays installed until Firefox restarts.
 ### Permissions
 
 If clicking a configured link still takes you to the original site, open
-`about:addons`, select unxcom, and check its **Permissions** tab: access to all
+`about:addons`, select un-X, and check its **Permissions** tab: access to all
 websites must be enabled. The extension also uses `webRequest` and
 `webRequestBlocking` to redirect direct opens before loading the source site,
 and `storage` to save your host pairs and
