@@ -28,5 +28,9 @@
 				"required": ["browsingActivity"]
 			}
 		}
+	},
+	"icons": {
+		"48": "icons/unx-48.png",
+		"96": "icons/unx-96.png"
 	}
 }
