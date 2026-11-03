@@ -1,7 +1,8 @@
 # un-X: un-x.com my browser
 
 A minimal Firefox extension that redirects links using configurable host pairs.
-The default pair is `x.com` → `nitter.cf`.
+The default pairs are `x.com` → `nitter.cf` and
+`instagram.com` → `kittygram.irelephant.net`.
 
 It runs on ordinary web pages, including localhost on any port.
 Normal clicks, Ctrl/Cmd-clicks, and middle clicks keep their usual tab behavior.
@@ -30,7 +31,7 @@ so pairs can point to other source hosts without chaining or looping. Address-ba
 redirects also apply only once per request.
 
 Settings are saved locally in your browser profile and apply immediately to
-open tabs. The default pair is used until you save your own list.
+open tabs. The default pairs are used until you save your own list.
 
 ## Load in Firefox
 
@@ -72,7 +73,7 @@ checkbox preference, following Mozilla's
 ## Files
 
 - `manifest.json`: extension name, version, website access, and content script registration.
-- `rules.js`: default pair and shared hostname validation.
+- `rules.js`: default pairs and shared hostname validation.
 - `content.js`: loads saved pairs and changes a link's destination during a user click, then restores it.
 - `background.js`: redirects direct opens from the address bar and external apps when the checkbox is enabled.
 - `options.html`, `options.css`, `options.js`: options screen for editing and saving pairs.
