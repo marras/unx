@@ -81,6 +81,17 @@ checkbox preference, following Mozilla's
 No dependencies or build step are required.
 Run the automated checks with `node --test` (Node.js 18 or newer).
 
+## Privacy
+
+Settings stay locally in your browser profile. Redirects send the preserved URL
+path and query to the configured destination website. See the
+[privacy policy](PRIVACY.md) for details and controls.
+
+## License
+
+un-X is licensed under the GNU General Public License version 3.0 only
+(`GPL-3.0-only`). See [LICENSE](LICENSE) for the full terms.
+
 ## Reference
 
 - [Temporary installation in Firefox](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)
