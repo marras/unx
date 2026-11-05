@@ -12,6 +12,7 @@
 		<main>
 			<h1>Redirect hosts</h1>
 			<p>Choose where links take you. Paths, query strings, and fragments stay the same.</p>
+			<p>Links, typed addresses, bookmarks, and external links redirect automatically. Click the un-X icon in the address bar to visit the original site in that tab until you leave it.</p>
 			<p>Enter hostnames only, such as <code>x.com</code> and <code>nitter.cf</code>. Source hosts also match their <code>www.</code> version. Destinations use HTTPS.</p>
 			<form id="settings">
 				<fieldset id="editor" disabled>
@@ -21,10 +22,6 @@
 						<label class="to-label" for="to">To host</label>
 					</div>
 					<div id="pairs"></div>
-					<label class="checkbox-option">
-						<input id="redirect-address-bar" type="checkbox">
-						Redirect links typed or pasted into the address bar or opened from external apps
-					</label>
 					<div class="actions">
 						<button id="add" type="button">Add pair</button>
 						<button type="submit">Save changes</button>

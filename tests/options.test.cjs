@@ -6,7 +6,7 @@ const path = require("node:path");
 
 async function setup(settings) {
 	const elements = new Map();
-	for (const id of ["settings", "editor", "pairs", "status", "pair-template", "redirect-address-bar", "add"]) {
+	for (const id of ["settings", "editor", "pairs", "status", "pair-template", "add"]) {
 		elements.set(`#${id}`, { listeners: {}, dataset: {}, children: [], checked: false,
 			addEventListener(name, listener) { this.listeners[name] = listener; },
 			replaceChildren() { this.children = []; },
@@ -28,17 +28,14 @@ async function setup(settings) {
 	return { elements, saved };
 }
 
-test("options load the saved checkbox and save both enabled and disabled values", async () => {
-	for (const redirectAddressBar of [undefined, false, true]) {
-		const { elements, saved } = await setup({ redirects: [], redirectAddressBar });
-		const checkbox = elements.get("#redirect-address-bar");
-		assert.equal(checkbox.checked, redirectAddressBar === true);
-		assert.equal(elements.get("#editor").disabled, false);
-		for (const enabled of [true, false]) {
-			checkbox.checked = enabled;
-			await elements.get("#settings").listeners.submit({ preventDefault() {} });
-			assert.deepEqual(saved.at(-1), { redirects: [], redirectAddressBar: enabled });
-			assert.equal(elements.get("#status").textContent, "Changes saved.");
-		}
-	}
+test("options save only host pairs and ignore the obsolete checkbox preference", async () => {
+ for (const redirectAddressBar of [undefined, false, true]) {
+  const { elements, saved } = await setup({ redirects: [], redirectAddressBar });
+  assert.equal(elements.get("#editor").disabled, false);
+  await elements.get("#settings").listeners.submit({ preventDefault() {} });
+  assert.deepEqual(saved.at(-1), { redirects: [] });
+  assert.equal(elements.get("#status").textContent, "Changes saved.");
+ }
+ const html = readFileSync(path.join(__dirname, "..", "options.html"), "utf8");
+ assert.doesNotMatch(html, /redirect-address-bar|type="checkbox"/);
 });

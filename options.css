@@ -15,7 +15,6 @@ input { min-width: 0; border: 1px solid GrayText; }
 button { cursor: pointer; }
 .arrow { padding-bottom: 10px; }
 .actions { display: flex; gap: 12px; flex-wrap: wrap; }
-.checkbox-option { flex-direction: row; align-items: center; gap: 8px; margin: 24px 0; }
 #status { min-height: 1.5em; }
 #status[data-error="true"] { color: light-dark(#a11212, #ffaaaa); }
 
