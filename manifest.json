@@ -1,9 +1,9 @@
 {
 	"manifest_version": 3,
 	"name": "un-X",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"description": "Redirect links using your own source and destination hosts.",
-	"permissions": ["storage", "webRequest", "webRequestBlocking"],
+	"permissions": ["storage", "webRequest", "webRequestBlocking", "webNavigation"],
 	"background": {
 		"scripts": ["rules.js", "background.js"]
 	},
@@ -11,14 +11,10 @@
 		"page": "options.html",
 		"open_in_tab": true
 	},
-	"content_scripts": [
-		{
-			"matches": ["<all_urls>"],
-			"js": ["rules.js", "content.js"],
-			"run_at": "document_start",
-			"all_frames": true
-		}
-	],
+	"page_action": {
+		"default_icon": { "48": "icons/unx-48.png", "96": "icons/unx-96.png" },
+		"default_title": "Redirected by un-X — click to open the original site"
+	},
 	"host_permissions": ["<all_urls>"],
 	"browser_specific_settings": {
 		"gecko": {

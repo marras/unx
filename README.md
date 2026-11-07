@@ -4,16 +4,18 @@ A minimal Firefox extension that redirects links using configurable host pairs.
 The default pairs are `x.com` → `nitter.cf` and
 `instagram.com` → `kittygram.irelephant.net`.
 
-It runs on ordinary web pages, including localhost on any port.
-Normal clicks, Ctrl/Cmd-clicks, and middle clicks keep their usual tab behavior.
+Links, addresses typed or pasted into the address bar, bookmarks, and external-app
+links redirect automatically. Normal clicks, Ctrl/Cmd-clicks, and middle clicks
+keep their usual tab behavior. Redirects apply to top-level HTTP(S) GET
+navigations; embedded frames and form submissions using POST are left alone.
 
-Paths, query strings, and fragments are preserved. To also redirect addresses
-typed or pasted into the address bar or opened from external apps, enable
-**Redirect links typed or pasted into the address bar or opened from external apps**
-in the options and save. This is off by default. Your existing checkbox preference
-also controls external-app links. Direct opens are redirected before the original
-site loads, so the original site does not need to be reachable. Other direct opens
-without an originating web page, such as bookmarks, are covered too.
+Paths, query strings, and fragments are preserved. After a redirect, an un-X
+icon appears in the Firefox desktop address bar. Click it to open the original
+URL in the same tab. That tab can then browse and reload the original host
+(including its `www.` version) until it leaves that host or closes. Other tabs
+continue redirecting. The icon stays on reload of the redirected page and
+clears when you navigate to another page. Returning through Back/Forward only
+shows an icon if a new redirect occurs; old redirect records are not restored.
 
 ## Configure redirects
 
@@ -26,9 +28,8 @@ Enter hostnames only, without a scheme, port, or path. For example,
 `x.com` → `nitter.cf` sends `https://x.com/user?q=hello#post` to
 `https://nitter.cf/user?q=hello#post`. Destination links always use HTTPS.
 Source hosts match with or without `www.`; other subdomains require their own
-pair. Each source can have only one destination. Each click applies one pair,
-so pairs can point to other source hosts without chaining or looping. Address-bar
-redirects also apply only once per request.
+pair. Each source can have only one destination. Each navigation request applies one pair,
+so pairs can point to other source hosts without chaining or looping.
 
 Settings are saved locally in your browser profile and apply immediately to
 open tabs. The default pairs are used until you save your own list.
@@ -65,17 +66,16 @@ increment the manifest version before signing each new version.
 If clicking a configured link still takes you to the original site, open
 `about:addons`, select un-X, and check its **Permissions** tab: access to all
 websites must be enabled. The extension also uses `webRequest` and
-`webRequestBlocking` to redirect direct opens before loading the source site,
-and `storage` to save your host pairs and
-checkbox preference, following Mozilla's
+`webRequestBlocking` to redirect navigations before loading the source site,
+`webNavigation` to track the page shown in each tab, and `storage` to save host
+pairs and keep temporary redirect and exception records in memory, following Mozilla's
 [options page guidance](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/options_ui).
 
 ## Files
 
-- `manifest.json`: extension name, version, website access, and content script registration.
+- `manifest.json`: extension name, version, website access, and address-bar icon registration.
 - `rules.js`: default pairs and shared hostname validation.
-- `content.js`: loads saved pairs and changes a link's destination during a user click, then restores it.
-- `background.js`: redirects direct opens from the address bar and external apps when the checkbox is enabled.
+- `background.js`: redirects top-level navigations, tracks the address-bar icon, and handles tab-scoped original-site exceptions.
 - `options.html`, `options.css`, `options.js`: options screen for editing and saving pairs.
 
 No dependencies or build step are required.
@@ -83,7 +83,9 @@ Run the automated checks with `node --test` (Node.js 18 or newer).
 
 ## Privacy
 
-Settings stay locally in your browser profile. Redirects send the preserved URL
+Settings stay locally in your browser profile. Original URLs and per-tab exceptions
+stay in memory for the browser session and are removed when no longer needed.
+Redirects send the preserved URL
 path and query to the configured destination website. See the
 [privacy policy](PRIVACY.md) for details and controls.
 

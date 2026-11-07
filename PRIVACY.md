@@ -1,6 +1,6 @@
 # un-X privacy policy
 
-Last updated: November 3, 2026
+Last updated: November 5, 2026
 
 un-X redirects links using source and destination hosts you can edit. Settings
 stay in your browser profile. Redirects send URL information to the destination
@@ -9,21 +9,28 @@ advertising, or developer-operated data collection endpoint.
 
 ## Information processed in your browser
 
-un-X reads the address of a link when you click it to determine whether its host
-matches a redirect pair. If you enable direct-navigation redirects, it also
-examines eligible top-level navigation requests, including addresses opened from
-the address bar, bookmarks, or external apps.
+un-X examines top-level HTTP(S) navigation requests to determine whether their
+host matches a redirect pair. This includes clicked links, addresses typed or
+pasted into the address bar, bookmarks, and external-app links. Non-GET requests,
+such as POST form submissions, are not redirected.
 
-The extension uses these addresses to apply your redirect rules. It does not
-maintain a browsing history database or send a list of the pages you visit to
-the developer.
+For each redirected tab, un-X temporarily keeps the original and destination
+URLs in Firefox’s in-memory extension session storage. This lets the address-bar
+icon return you to the original URL. Clicking the icon replaces that record with
+a temporary exception for the original host in that tab, allowing you to browse
+it until you leave the host or close the tab. Records are cleared when they no
+longer apply, when the tab closes, or when the browser or extension shuts down.
+They are not saved to disk or sent to the developer.
+
+The extension does not maintain a browsing history database or send a list of
+the pages you visit to the developer.
 
 ## Settings stored locally
 
-un-X saves your source and destination host pairs and your direct-navigation
-preference in Firefox’s local extension storage. These settings remain until
-you change them or remove the extension. The extension does not upload or sync
-them to a server.
+un-X saves your source and destination host pairs in Firefox’s local extension
+storage. These settings remain until you change them or remove the extension.
+The extension does not upload or sync them to a server. Older installations may
+retain an unused direct-navigation preference; it no longer controls redirects.
 
 ## Information sent to destination websites
 
@@ -63,8 +70,9 @@ In Firefox’s Add-ons Manager, select un-X and open its Preferences or Options 
 
 - Change or remove individual host pairs.
 - Remove every pair and select “Save changes” to stop all redirects.
-- Enable or disable redirects for addresses opened from the address bar,
-  bookmarks, or external apps. This option is off by default.
+
+On Firefox desktop, click the un-X address-bar icon after a redirect to visit the
+original site in that tab. The exception ends when the tab leaves that host or closes.
 
 You can disable or uninstall un-X through Firefox’s Add-ons Manager. Uninstalling
 removes its local extension settings. Disabling redirects or uninstalling cannot

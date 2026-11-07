@@ -14,8 +14,7 @@ Redirect X and Instagram links to alternative sites, or configure your own sourc
 
 ## Description
 
-Choose where links take you. un-X redirects links on ordinary web pages using
-editable source and destination host pairs.
+Choose where links take you. un-X redirects top-level navigations using editable source and destination host pairs.
 
 Two pairs are active by default:
 
@@ -27,19 +26,21 @@ URL path, query string, and fragment, and destinations use HTTPS. Source hosts
 also match their www. version; other subdomains need their own pair.
 
 Normal clicks, Ctrl/Cmd-clicks, and middle clicks retain their usual tab behavior.
-Each click applies one pair, without chaining through other pairs.
+Each navigation request applies one pair, without chaining through other pairs.
 
-Redirecting addresses typed or pasted into the address bar, opened from external
-apps, or opened from bookmarks is optional and off by default. Enable “Redirect
-links typed or pasted into the address bar or opened from external apps” in the
-options and save to use this feature.
+Clicked links, typed or pasted addresses, bookmarks, and external-app links all
+redirect automatically. Top-level HTTP(S) GET requests are covered; POST form
+submissions and embedded frames are not redirected.
+
+After a redirect, click the un-X icon in the Firefox desktop address bar to open
+the original URL. The original host can then be browsed and reloaded in that tab
+until the tab leaves the host or closes. Other tabs continue redirecting.
 
 To configure un-X, open Firefox’s Add-ons Manager, select un-X, and open its
 Preferences or Options. Edit the host pairs and select “Save changes”. Saved
 changes apply to open tabs. Remove all pairs and save to disable all redirects.
 
-Website access is needed to handle clicks on pages where you encounter links
-and to support custom source hosts. Firefox restricts extensions on certain
+Website access is needed to redirect navigations to custom source hosts. Firefox restricts extensions on certain
 pages, including its internal pages and protected Mozilla pages.
 
 Settings stay in your browser profile. The extension has no analytics and sends
@@ -72,21 +73,23 @@ Requires Firefox 142 or later.
 
 un-X is a configurable host redirect extension. Its initial pairs are
 x.com → nitter.cf and instagram.com → kittygram.irelephant.net. Users can edit
-or remove every pair. Direct-navigation redirects are off by default.
+or remove every pair. All eligible navigations redirect automatically.
 
 Permissions:
 
-- Access to all websites: content scripts handle clicks on ordinary web pages,
-  including links to user-configured source hosts. Host access also allows the
-  background listener to redirect configured direct navigations.
-- storage: saves host pairs and the direct-navigation preference in storage.local.
-- webRequest and webRequestBlocking: redirect eligible top-level GET requests
-  without an originating page when the direct-navigation option is enabled.
+- Access to all websites: allows redirecting navigations to user-configured hosts.
+- storage: saves host pairs in storage.local and temporary original URLs and
+  per-tab exceptions in in-memory storage.session.
+- webRequest and webRequestBlocking: redirect top-level HTTP(S) GET requests
+  before loading the source site.
+- webNavigation: tracks committed navigations and same-document URL changes to
+  update the address-bar icon and clear exceptions when leaving the original host.
 - Required browsingActivity data permission: redirects transmit the preserved
   URL path and query to the configured destination site. Firefox’s built-in
   consent is used; the minimum Firefox version is 142.
 
-The extension does not record browsing history, use analytics, or contact a
+The extension keeps temporary redirect records in memory, does not maintain a
+browsing history database, use analytics, or contact a
 developer-operated collection endpoint. It includes readable JavaScript with
 no dependencies, minification, generated code, or build step. No account is
 needed to configure or test the redirect mechanism.
@@ -94,28 +97,25 @@ needed to configure or test the redirect mechanism.
 To test without depending on alternative services:
 
 1. Open the options, remove the initial pairs, add example.com → example.org,
-   and save. Leave the direct-navigation checkbox unchecked.
-2. On an ordinary web page with a link to https://example.com/, click that link.
-   Confirm navigation to https://example.org/. Ctrl/Cmd-click and middle-click
-   should retain the browser’s normal tab behavior.
-3. Open https://example.com/ directly from the address bar. It should remain
-   on example.com while the option is off.
-4. Enable the direct-navigation checkbox and save. Enter
-   https://example.com/?unx-test=1#demo in the address bar. The resulting URL
-   should be https://example.org/?unx-test=1#demo.
-5. Remove all pairs and save. Clicked links and direct navigations should no
-   longer redirect.
+   and save.
+2. Click a link to https://example.com/ on an ordinary web page. Confirm navigation
+   to https://example.org/ and the un-X address-bar icon. Ctrl/Cmd-click and
+   middle-click should retain their normal tab behavior.
+3. Enter https://example.com/?unx-test=1#demo in the address bar. Confirm the URL
+   becomes https://example.org/?unx-test=1#demo and shows the icon.
+4. Click the icon. Confirm return to the original URL. Reload and browse within
+   example.com; the tab should stay on that host. Another tab should still redirect.
+5. Navigate the excepted tab to an unrelated site, then open example.com again.
+   Confirm redirects resume. Remove all pairs and save to disable redirects.
 
 ## Screenshot copy
 
 Capture the actual extension UI with a clean test profile and no personal data.
-These captions are ready to accompany the screenshots; the images still need
-to be captured.
 
-1. Options showing both default pairs with the direct-navigation checkbox off.
+1. Options showing both default pairs.
    Caption: “Edit the default X and Instagram redirects, or add your own host pairs.”
-2. Options showing a custom example.com → example.org pair and the checkbox on.
-   Caption: “Optionally redirect addresses opened from the address bar, bookmarks, and external apps.”
+2. A redirected page with the un-X address-bar icon visible.
+   Caption: “Click un-X to browse the original site in this tab.”
 3. Options with every pair removed and changes saved.
    Caption: “Remove all host pairs and save to turn off redirects.”
 
