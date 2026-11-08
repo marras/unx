@@ -5,8 +5,7 @@ The default pairs are `x.com` → `nitter.cf` and
 `instagram.com` → `kittygram.irelephant.net`.
 
 Links, addresses typed or pasted into the address bar, bookmarks, and external-app
-links redirect automatically. Normal clicks, Ctrl/Cmd-clicks, and middle clicks
-keep their usual tab behavior. Redirects apply to top-level HTTP(S) GET
+links redirect automatically, keeping their usual tab behavior. Redirects apply to top-level HTTP(S) GET
 navigations; embedded frames and form submissions using POST are left alone.
 
 Paths, query strings, and fragments are preserved. After a redirect, an un-X
@@ -34,7 +33,19 @@ so pairs can point to other source hosts without chaining or looping.
 Settings are saved locally in your browser profile and apply immediately to
 open tabs. The default pairs are used until you save your own list.
 
-## Load in Firefox
+### Permissions
+
+If clicking a configured link still takes you to the original site, open
+`about:addons`, select un-X, and check its **Permissions** tab: access to all
+websites must be enabled. The extension also uses `webRequest` and
+`webRequestBlocking` to redirect navigations before loading the source site,
+`webNavigation` to track the page shown in each tab, and `storage` to save host
+pairs and keep temporary redirect and exception records in memory, following Mozilla's
+[options page guidance](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/options_ui).
+
+## Development
+
+### How to test the add-on locally in Firefox
 
 `git clone https://github.com/marras/unx`
 
@@ -60,16 +71,6 @@ The web-ext configuration excludes `.env` files and development files from
 packages. Install the signed `.xpi` through `about:addons` → the gear menu →
 **Install Add-on From File…**. Keep the ID unchanged for future updates and
 increment the manifest version before signing each new version.
-
-### Permissions
-
-If clicking a configured link still takes you to the original site, open
-`about:addons`, select un-X, and check its **Permissions** tab: access to all
-websites must be enabled. The extension also uses `webRequest` and
-`webRequestBlocking` to redirect navigations before loading the source site,
-`webNavigation` to track the page shown in each tab, and `storage` to save host
-pairs and keep temporary redirect and exception records in memory, following Mozilla's
-[options page guidance](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/options_ui).
 
 ## Files
 
