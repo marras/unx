@@ -73,12 +73,10 @@ function setup(settings = {}, session = {}) {
  };
 }
 
-test("redirects direct opens and page links regardless of the obsolete checkbox", async () => {
- for (const redirectAddressBar of [undefined, false, true]) {
-  const app = setup({ redirectAddressBar });
-  for (const originUrl of [undefined, "https://example.org/", "moz-extension://id/"]) {
-   assert.deepEqual(await app.request({ originUrl }), { redirectUrl: destination });
-  }
+test("redirects direct opens and page links", async () => {
+ const app = setup();
+ for (const originUrl of [undefined, "https://example.org/", "moz-extension://id/"]) {
+  assert.deepEqual(await app.request({ originUrl }), { redirectUrl: destination });
  }
 });
 

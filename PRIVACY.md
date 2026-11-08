@@ -32,8 +32,7 @@ the pages you visit to the developer.
 un-X saves your source and destination host pairs in Firefox’s local extension
 storage so it can remember and apply your redirect configuration. These settings
 remain until you change them or remove the extension.
-The extension does not upload or sync them to a server. Older installations may
-retain an unused direct-navigation preference; it no longer controls redirects.
+The extension does not upload or sync them to a server.
 
 ## Information sent to destination websites
 
