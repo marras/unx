@@ -31,6 +31,7 @@ Each navigation request applies one pair, without chaining through other pairs.
 Clicked links, typed or pasted addresses, bookmarks, and external-app links all
 redirect automatically. Top-level HTTP(S) GET requests are covered; POST form
 submissions and embedded frames are not redirected.
+URLs containing an embedded username or password are left on the original host.
 
 After a redirect, click the un-X icon in the Firefox desktop address bar to open
 the original URL. The original host can then be browsed and reloaded in that tab

@@ -53,6 +53,8 @@ browser.webRequest.onBeforeRequest.addListener((details) => {
 		if (details.method !== "GET") return;
 		const url = new URL(details.url);
 		if (!/^https?:$/.test(url.protocol)) return;
+		// Keep embedded credentials on the original host.
+		if (url.username || url.password) return;
 		const settings = await browser.storage.local.get("redirects");
 		const pairs = redirectRules.normalizePairs(settings.redirects ?? redirectRules.defaults);
 		const pair = pairs.find(({ from }) =>

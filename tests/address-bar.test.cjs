@@ -87,6 +87,24 @@ test("preserves URL components and normalizes source hosts, protocol and port", 
  assert.equal(app.state().originalUrl, "http://www.x.com:8080/user?q=hello#post");
 });
 
+test("URLs with embedded credentials stay on the original host without redirect state", async () => {
+ for (const url of [
+  "https://user@x.com/account",
+  "https://user:password@x.com/account",
+  "https://:password@x.com/account",
+  "http://user%40example.com:p%40ss@www.x.com:8080/account",
+ ]) {
+  const app = setup();
+  assert.equal(await app.request({ url, requestId: "credentials" }), undefined);
+  assert.deepEqual(app.session, {});
+  assert.equal(app.visible.size, 0);
+  assert.deepEqual(app.updates, []);
+  assert.deepEqual(app.errors, []);
+  // Skipping must not mark the request as redirected or suppress a later redirect.
+  assert.deepEqual(await app.request({ requestId: "credentials" }), { redirectUrl: destination });
+ }
+});
+
 test("only confirmed redirects show an icon, with a descriptive tooltip", async () => {
  const app = setup();
  await app.commit();

@@ -7,6 +7,7 @@ The default pairs are `x.com` → `nitter.cf` and
 Links, addresses typed or pasted into the address bar, bookmarks, and external-app
 links redirect automatically, keeping their usual tab behavior. Redirects apply to top-level HTTP(S) GET
 navigations; embedded frames and form submissions using POST are left alone.
+URLs containing an embedded username or password are also left on the original host.
 
 Paths, query strings, and fragments are preserved. After a redirect, an un-X
 icon appears in the Firefox desktop address bar. Click it to open the original
