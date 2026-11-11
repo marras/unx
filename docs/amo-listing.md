@@ -10,16 +10,19 @@ un-X
 
 ## Summary
 
-Redirect X and Instagram links to alternative sites, or configure your own source and destination hosts.
+Redirect X, Instagram, Medium, Reddit, and Pinterest links to alternative sites, or configure your own host pairs.
 
 ## Description
 
 Choose where links take you. un-X redirects top-level navigations using editable source and destination host pairs.
 
-Two pairs are active by default:
+Five pairs are active by default:
 
 - x.com → nitter.cf
 - instagram.com → kittygram.irelephant.net
+- medium.com → scribe.rawbit.ninja
+- reddit.com → redlib.catsarch.com
+- pinterest.com → binternet.privacyredirect.com
 
 You can replace or remove either pair and add your own. Redirects preserve the
 URL path, query string, and fragment, and destinations use HTTPS. Source hosts
@@ -72,9 +75,9 @@ Requires Firefox 142 or later.
 
 ## Notes for reviewers
 
-un-X is a configurable host redirect extension. Its initial pairs are
-x.com → nitter.cf and instagram.com → kittygram.irelephant.net. Users can edit
-or remove every pair. All eligible navigations redirect automatically.
+un-X is a configurable host redirect extension. Its five initial pairs are listed
+in the Description above. Users can edit or remove every pair. All eligible
+navigations redirect automatically.
 
 Permissions:
 
@@ -113,8 +116,8 @@ To test without depending on alternative services:
 
 Capture the actual extension UI with a clean test profile and no personal data.
 
-1. Options showing both default pairs.
-   Caption: “Edit the default X and Instagram redirects, or add your own host pairs.”
+1. Options showing all five default pairs.
+   Caption: “Edit the default redirects, or add your own host pairs.”
 2. A redirected page with the un-X address-bar icon visible.
    Caption: “Click un-X to browse the original site in this tab.”
 3. Options with every pair removed and changes saved.

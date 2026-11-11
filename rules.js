@@ -4,6 +4,9 @@ globalThis.redirectRules = (() => {
 	const defaults = [
 		{ from: "x.com", to: "nitter.cf" },
 		{ from: "instagram.com", to: "kittygram.irelephant.net" },
+		{ from: "medium.com", to: "scribe.rawbit.ninja" },
+		{ from: "reddit.com", to: "redlib.catsarch.com" },
+		{ from: "pinterest.com", to: "binternet.privacyredirect.com" },
 	];
 
 	function normalizeHost(value) {

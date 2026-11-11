@@ -1,7 +1,7 @@
 # un-X privacy policy
 
-Effective date: November 8, 2026
-Last updated: November 8, 2026
+Effective date: November 11, 2026
+Last updated: November 11, 2026
 
 un-X redirects links using source and destination hosts you can edit. Settings
 stay in your browser profile. Redirects send URL information to the destination
@@ -60,6 +60,9 @@ Until you save your own pairs, the default destinations are:
 
 - `x.com` → `nitter.cf`
 - `instagram.com` → `kittygram.irelephant.net`
+- `medium.com` → `scribe.rawbit.ninja`
+- `reddit.com` → `redlib.catsarch.com`
+- `pinterest.com` → `binternet.privacyredirect.com`
 
 The default destination websites are operated by third parties. The maintainer
 does not own or operate those websites. The default redirect rules are enabled

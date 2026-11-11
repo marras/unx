@@ -1,8 +1,13 @@
 # un-X: un-x.com my browser
 
 A minimal Firefox extension that redirects links using configurable host pairs.
-The default pairs are `x.com` → `nitter.cf` and
-`instagram.com` → `kittygram.irelephant.net`.
+The default pairs are:
+
+- `x.com` → `nitter.cf`
+- `instagram.com` → `kittygram.irelephant.net`
+- `medium.com` → `scribe.rawbit.ninja`
+- `reddit.com` → `redlib.catsarch.com`
+- `pinterest.com` → `binternet.privacyredirect.com`
 
 Links, addresses typed or pasted into the address bar, bookmarks, and external-app
 links redirect automatically, keeping their usual tab behavior. Redirects apply to top-level HTTP(S) GET
