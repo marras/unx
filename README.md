@@ -61,7 +61,32 @@ pairs and keep temporary redirect and exception records in memory, following Moz
 
 The temporary extension stays installed until Firefox restarts.
 
-### Permanent installation
+### Build the extension
+
+Install a current Node.js LTS release (Node.js 22 or newer for web-ext 10).
+From the repository root, run:
+
+```sh
+node --test
+npx web-ext lint
+npx web-ext build
+```
+
+These commands run the automated tests, validate the extension with Mozilla’s
+linter, and package it into a ZIP. `npx` downloads web-ext on first use if needed;
+no global installation is required.
+
+To rebuild the same version and replace its existing ZIP, run:
+
+```sh
+npx web-ext build --overwrite-dest
+```
+
+The ZIP is unsigned. To try the extension locally, use `npx web-ext run` or the
+temporary installation steps above. Permanent installation in standard Firefox
+requires Mozilla signing.
+
+### Sign for self-distribution
 
 The extension uses the permanent Firefox ID `unx@marek` and requires Firefox
 142 or newer, which provides built-in consent for data transmission on both
